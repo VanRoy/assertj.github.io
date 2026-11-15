@@ -1,11 +1,17 @@
 {{#unless (eq page.attributes.pagination undefined)}}
 {{#if (or page.previous page.next)}}
-<nav class="pagination">
+<nav class="pagination" aria-label="Pagination">
   {{#with page.previous}}
-  <span class="prev"><a href="{{{relativize ./url}}}">{{{./content}}}</a></span>
+  <a class="pagination-link prev" href="{{{relativize ./url}}}">
+    <span class="pagination-label">Previous</span>
+    <span class="pagination-title">{{{./content}}}</span>
+  </a>
   {{/with}}
   {{#with page.next}}
-  <span class="next"><a href="{{{relativize ./url}}}">{{{./content}}}</a></span>
+  <a class="pagination-link next" href="{{{relativize ./url}}}">
+    <span class="pagination-label">Next</span>
+    <span class="pagination-title">{{{./content}}}</span>
+  </a>
   {{/with}}
 </nav>
 {{/if}}

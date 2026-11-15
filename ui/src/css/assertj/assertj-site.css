@@ -15,7 +15,9 @@
  */
 
 @import "assertj-base.css";
+@import "assertj-theme.css";
 @import "assertj-doc.css";
+@import "assertj-docs.css";
 @import "assertj-toc.css";
 @import "assertj-404.css";
 @import "assertj-switchtheme.css";

@@ -17,6 +17,7 @@
   'use strict'
 
   activateSwitch(document.getElementById('switch-theme-checkbox'))
+  activateSearchShortcut(document.getElementById('search-input'))
 
   function activateSwitch (control) {
     if (!control) return
@@ -25,18 +26,33 @@
   }
 
   function onThemeChange () {
+    var theme = this.checked ? 'dark' : 'light'
     document.documentElement.classList.toggle('dark-theme', this.checked)
-    document.documentElement.classList.toggle('sand-theme', !this.checked)
-    document.documentElement.setAttribute('data-theme', this.checked ? 'dark' : 'sand')
-    saveTheme(this.checked ? 'dark' : 'sand')
-    if (this.checked) {
-      this.parentElement.classList.add('active')
-    } else {
-      this.parentElement.classList.remove('active')
-    }
+    document.documentElement.classList.remove('sand-theme')
+    document.documentElement.setAttribute('data-theme', theme)
+    saveTheme(theme)
+    this.parentElement.classList.toggle('active', this.checked)
   }
 
   function saveTheme (theme) {
-    window.localStorage && window.localStorage.setItem('theme', theme)
+    try {
+      window.localStorage && window.localStorage.setItem('theme', theme)
+    } catch (e) {}
+  }
+
+  // Focus the search field with "/" or Ctrl/Cmd+K, like most documentation sites
+  function activateSearchShortcut (input) {
+    if (!input) return
+    document.addEventListener('keydown', function (e) {
+      var target = e.target
+      var typing = target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))
+      var slash = e.key === '/' && !typing && !e.ctrlKey && !e.metaKey && !e.altKey
+      var cmdK = (e.key === 'k' || e.key === 'K') && (e.ctrlKey || e.metaKey)
+      if (slash || cmdK) {
+        e.preventDefault()
+        input.focus()
+        input.select()
+      }
+    })
   }
 })()

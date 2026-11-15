@@ -1,2 +1,29 @@
 <footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="{{site.homeUrl}}" class="footer-logo">
+        <img src="{{{uiRootPath}}}/img/assertj-logo.png" alt="" width="28" height="28" />
+        <span>AssertJ</span>
+      </a>
+      <p>Fluent assertions for Java. Open source, released under the Apache License 2.0.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Modules</h4>
+      {{#each site.components}}
+      {{#unless (eq ./name 'assertj')}}
+      <a href="{{{relativize ./url}}}">{{{./title}}}</a>
+      {{/unless}}
+      {{/each}}
+    </div>
+    <div class="footer-links">
+      <h4>Community</h4>
+      <a href="https://github.com/assertj">GitHub</a>
+      <a href="https://stackoverflow.com/questions/tagged/assertj">Stack Overflow</a>
+      <a href="https://bsky.app/profile/assertj.github.io">Bluesky</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; {{year}} AssertJ contributors</span>
+    <span>Built with <a href="https://antora.org">Antora</a></span>
+  </div>
 </footer>

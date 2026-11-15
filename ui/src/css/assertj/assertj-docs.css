@@ -1,0 +1,331 @@
+/*
+ * Documentation pages: sidebar navigation, breadcrumbs and page title.
+ * Overrides the inherited Spring UI rules (nav.css, breadcrumbs.css, page-versions.css).
+ */
+
+:root {
+  --aj-nav-background: #fafaf8;
+  --aj-nav-link-color: #3f4650;
+  --aj-nav-hover-background: rgba(22, 24, 27, 0.05);
+}
+
+html.dark-theme {
+  --aj-nav-background: #181b1e;
+  --aj-nav-link-color: #b4b9c0;
+  --aj-nav-hover-background: rgba(255, 255, 255, 0.06);
+}
+
+/* ------------------------------------------------------------------ */
+/* Sidebar                                                            */
+/* ------------------------------------------------------------------ */
+
+.nav,
+.nav-panel-menu .context {
+  background: var(--aj-nav-background);
+}
+
+@media screen and (min-width: 1024px) {
+  .nav {
+    border-right: 1px solid var(--aj-border);
+  }
+}
+
+.nav-resize {
+  border-left-color: transparent;
+}
+
+.nav-resize:hover {
+  border-left: 2px solid var(--aj-gold);
+}
+
+/* Component title + version */
+
+.nav-panel-menu .context {
+  padding: 1.25rem 1.25rem 1rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--aj-border);
+}
+
+.nav-panel-menu .context .title {
+  height: auto;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  color: var(--heading-font-color);
+}
+
+.nav-panel-menu .context .version {
+  padding: 0.3em 0.7em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+button.browse-version {
+  top: 1.1rem;
+  right: 0.75rem;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  background: transparent;
+  border-radius: var(--aj-radius-sm);
+}
+
+button.browse-version svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--aj-muted);
+}
+
+button.browse-version:hover,
+html.dark-theme button.browse-version:hover {
+  background: var(--aj-nav-hover-background);
+}
+
+.page-versions {
+  top: 3.25rem;
+  right: 0.75rem;
+  z-index: var(--z-index-page-version-menu);
+}
+
+.page-versions .version-menu {
+  min-width: 9rem;
+  padding: 0.4rem;
+  align-items: stretch;
+  background: var(--aj-surface);
+  border: 1px solid var(--aj-border);
+  border-radius: var(--aj-radius-sm);
+  box-shadow: var(--aj-shadow-hover);
+}
+
+.page-versions .version {
+  padding: 0.45rem 0.75rem;
+  color: var(--body-font-color);
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.page-versions .version:hover {
+  background: var(--aj-gold-soft);
+}
+
+/* Links */
+
+.nav-menu .nav-list {
+  padding-right: 0.75rem;
+  padding-left: 0.5rem;
+}
+
+.nav-menu .nav-item {
+  margin: 1px 0;
+}
+
+.nav-menu .nav-link,
+.nav-menu .nav-text {
+  padding: 0.4rem 0.6rem 0.4rem 0.75rem;
+  color: var(--aj-nav-link-color);
+  border-radius: 6px;
+  transition: background-color 0.12s, color 0.12s;
+}
+
+.nav-menu .nav-item-toggle + .nav-link,
+.nav-menu .nav-item-toggle + .nav-text {
+  padding-left: 1.6rem;
+}
+
+.nav-menu .nav-link:hover,
+.nav-menu .nav-text:hover,
+.nav-menu .nav-item-toggle:hover + .nav-link,
+.nav-menu .nav-item-toggle:hover + .nav-text {
+  color: var(--heading-font-color);
+  background: var(--aj-nav-hover-background);
+}
+
+/* Section headers (items with children) read as group labels */
+
+.nav-menu .nav-item[data-depth="0"] > .nav-item-toggle + .nav-link,
+.nav-menu .nav-item[data-depth="0"] > .nav-item-toggle + .nav-text {
+  font-weight: 600;
+  color: var(--heading-font-color);
+}
+
+/* Current page: soft gold pill with a gold marker */
+
+.nav-menu .is-current-page > .nav-link,
+.nav-menu .is-current-page > .nav-text,
+.nav-menu .is-current-page > .nav-link:hover,
+.nav-menu .is-current-page > .nav-text:hover,
+.nav-menu .nav-item.is-current-page > .nav-item-toggle:hover + .nav-link {
+  font-weight: 600;
+  color: var(--heading-font-color);
+  background: var(--aj-gold-soft);
+  box-shadow: inset 3px 0 0 var(--aj-gold-strong);
+  border-radius: 0 6px 6px 0;
+}
+
+/* Expand / collapse chevrons */
+
+.nav-menu .nav-item-toggle,
+.nav-menu .nav-item.is-current-page > .nav-item-toggle {
+  top: 0.4rem;
+  left: 0.3rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0;
+  background: transparent url(../img/chevron.svg) no-repeat center / 60%;
+  filter: opacity(55%);
+  transform: rotate(-90deg);
+  transition: transform 0.15s ease;
+}
+
+.nav-menu .nav-item.is-active > .nav-item-toggle {
+  transform: rotate(0deg);
+}
+
+html.dark-theme .nav-menu .nav-item-toggle,
+html.dark-theme .nav-menu .nav-item.is-current-page > .nav-item-toggle {
+  background-image: url(../img/chevron-white.svg);
+}
+
+/* Nested levels: indent with a thin guide line */
+
+.nav-menu .nav-item:not([data-depth="0"]) > .nav-list {
+  margin: 2px 0 4px 1rem;
+  padding: 0 0 0 0.4rem;
+  border-left: 1px solid var(--aj-border);
+}
+
+.nav-menu .nav-list .nav-link,
+.nav-menu .nav-list .nav-text {
+  margin-left: 0;
+}
+
+/* Collapse bar at the bottom of the sidebar */
+
+.nav-collapse {
+  margin-right: 0;
+  background: var(--aj-nav-background);
+  border-top: 1px solid var(--aj-border);
+}
+
+.nav-collapse button {
+  border-radius: 6px;
+}
+
+.nav-collapse button:hover {
+  background: var(--aj-nav-hover-background);
+}
+
+/* ------------------------------------------------------------------ */
+/* Breadcrumbs and page title                                         */
+/* ------------------------------------------------------------------ */
+
+.breadcrumbs-container,
+.breadcrumbs-container:first-child {
+  position: static;
+  margin: 0;
+  padding: 2rem 0 0;
+  background: transparent;
+  border-bottom: 0;
+}
+
+@media screen and (min-width: 1024px) {
+  .breadcrumbs-container {
+    position: static;
+    margin: 0 0 0 1rem;
+    padding: 2.25rem 0 0;
+  }
+}
+
+.breadcrumbs {
+  font-size: 0.8rem;
+  color: var(--aj-muted);
+}
+
+.breadcrumbs a {
+  color: var(--aj-muted);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--heading-font-color);
+}
+
+.breadcrumbs li::after {
+  content: "";
+  display: inline-block;
+  width: 0.4em;
+  height: 0.4em;
+  padding: 0;
+  margin: 0 0.75rem 0.1em 0.55rem;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  opacity: 0.6;
+  transform: rotate(45deg);
+}
+
+.breadcrumbs li:last-of-type {
+  font-weight: 600;
+  color: var(--heading-font-color);
+}
+
+/* Page title with a short gold underline instead of a full-width rule */
+
+.doc > h1#page-title {
+  margin: 0.75rem 0 2rem;
+  padding-bottom: 1.1rem;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  border-bottom: 1px solid var(--aj-border);
+  position: relative;
+}
+
+.doc > h1#page-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 3.5rem;
+  height: 3px;
+  background: var(--aj-gold-strong);
+  border-radius: 3px;
+}
+
+/* Section headings */
+
+.doc h2 {
+  letter-spacing: -0.02em;
+}
+
+.doc .sect1 + .sect1 {
+  border-top: 0;
+}
+
+/* Right-hand table of contents */
+
+.toc .toc-menu h3 {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--aj-muted);
+}
+
+.toc .toc-menu a {
+  border-left-width: 2px;
+  color: var(--aj-nav-link-color);
+}
+
+.toc .toc-menu a:hover {
+  color: var(--heading-font-color);
+}
+
+.toc .toc-menu a.is-active {
+  border-left-color: var(--aj-gold-strong);
+  color: var(--heading-font-color);
+  font-weight: 600;
+}

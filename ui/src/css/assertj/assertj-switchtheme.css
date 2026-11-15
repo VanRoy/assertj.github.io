@@ -1,62 +1,62 @@
 .theme-toggler {
-  display: inline-block;
-  height: 10px;
-  width: 36px;
-  background: #d7e7e7;
-  align-self: center;
   position: relative;
-  border-radius: 5px;
-  font-size: 13px;
-  margin-right: 1rem;
-  margin-left: 5px;
+  display: inline-block;
+  flex: none;
+  align-self: center;
+  width: 44px;
+  height: 24px;
+  margin: 0 1.25rem 0 0.5rem;
+  background: var(--aj-surface-alt);
+  border: 1px solid var(--aj-border-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+.theme-toggler input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
   cursor: pointer;
 }
-.theme-toggler input {
-  opacity: 0;
+
+.theme-toggler:focus-within {
+  box-shadow: var(--aj-focus-ring);
 }
+
+.theme-toggler span.icon {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: var(--aj-ink);
+  background: var(--aj-gold);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: left 0.25s ease, background-color 0.25s;
+  pointer-events: none;
+}
+
+.theme-toggler span.icon svg {
+  width: 11px;
+  height: 11px;
+}
+
 .theme-toggler .moon {
   display: none;
 }
-.theme-toggler span.text {
-  display: block;
-  overflow: hidden;
-  text-indent: -6000em;
-  background-color: transparent;
-}
-.theme-toggler span.icon {
-  position: absolute;
-  top: -7px;
-  left: -1px;
-  display: block;
-  background: black;
-  color: white;
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  transition: left 0.5s;
-}
-.theme-toggler span.icon svg {
-  overflow: visible;
-  box-sizing: content-box;
-  height: 1em;
-}
-.theme-toggler span.icon .moon {
-  margin-left: 7px;
-  margin-top: 5px;
-}
-.theme-toggler span.icon .sun {
-  margin-left: 5px;
-  margin-top: 5px;
-}
-
-.theme-toggler.active {
-  background: #41464b;
-}
 
 .theme-toggler.active span.icon {
-  background: white;
-  color: black;
-  left: 14px;
+  left: 22px;
+  color: var(--aj-ink);
+  background: #f2f2f2;
 }
 
 .theme-toggler.active span.icon .sun {
@@ -67,10 +67,15 @@
   display: block;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023.5px) {
   .theme-toggler {
     position: absolute;
-    right: 0;
-    top: 90px;
+    top: calc((var(--navbar-height) - 24px) / 2);
+    right: 1rem;
+    margin: 0;
+  }
+
+  .navbar-brand {
+    padding-right: 4.5rem;
   }
 }

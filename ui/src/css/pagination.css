@@ -1,69 +1,66 @@
 nav.pagination {
-  display: flex;
-  border-top: 1px solid var(--toolbar-border-color);
-  line-height: 1;
-  margin: 2rem -1rem -1rem;
-  padding: 0.75rem 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 3.5rem 0 1rem;
+  line-height: 1.3;
 }
 
-nav.pagination span {
+nav.pagination .pagination-link {
+  position: relative;
   display: flex;
-  flex: 50%;
   flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem 1.25rem;
+  color: var(--doc-font-color);
+  text-decoration: none;
+  border: 1px solid var(--aj-border);
+  border-radius: var(--aj-radius);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
 
-nav.pagination .prev {
-  padding-right: 0.5rem;
+nav.pagination .pagination-link:hover,
+nav.pagination .pagination-link:focus-visible {
+  border-color: var(--aj-gold-strong);
+  box-shadow: var(--aj-shadow-hover);
+  transform: translateY(-1px);
+  outline: none;
 }
 
 nav.pagination .next {
-  margin-left: auto;
-  padding-left: 0.5rem;
+  grid-column: 2;
+  align-items: flex-end;
   text-align: right;
 }
 
-nav.pagination span::before {
-  color: var(--toolbar-muted-color);
-  font-size: 0.75em;
-  padding-bottom: 0.1em;
+nav.pagination .pagination-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--aj-muted);
 }
 
-nav.pagination .prev::before {
-  content: "Prev";
+nav.pagination .prev .pagination-label::before {
+  content: "\2190\00a0";
 }
 
-nav.pagination .next::before {
-  content: "Next";
+nav.pagination .next .pagination-label::after {
+  content: "\00a0\2192";
 }
 
-nav.pagination a {
-  font-weight: var(--body-font-weight-bold);
-  line-height: 1.3;
-  position: relative;
-}
-
-nav.pagination a::before,
-nav.pagination a::after {
-  color: var(--toolbar-muted-color);
-  font-weight: normal;
-  font-size: 1.5em;
-  line-height: 0.75;
-  position: absolute;
-  top: 0;
-  width: 1rem;
-}
-
-nav.pagination .prev a::before {
-  content: "\2039";
-  transform: translateX(-100%);
-}
-
-nav.pagination .next a::after {
-  content: "\203a";
+nav.pagination .pagination-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--link-font-color);
 }
 
 @media screen and (max-width: 768px) {
   nav.pagination {
-    padding: 1rem 2rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  nav.pagination .next {
+    grid-column: 1;
   }
 }

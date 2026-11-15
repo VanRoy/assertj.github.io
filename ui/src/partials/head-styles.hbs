@@ -1,7 +1,6 @@
     <script>
 !function (theme, navWidth) {
   if (theme === 'dark') document.documentElement.classList.add('dark-theme')
-  if (theme === 'sand') document.documentElement.classList.add('sand-theme')
   if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
 }(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
   localStorage && localStorage.getItem('nav-width'))

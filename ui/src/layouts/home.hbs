@@ -3,39 +3,70 @@
   <head>
 {{> head defaultPageTitle='Untitled'}}
   </head>
-  <body class="article{{#with (or page.attributes.role page.role)}} {{{this}}}{{/with}}">
+  <body class="article home-page{{#with (or page.attributes.role page.role)}} {{{this}}}{{/with}}">
 {{> header}}
 <div class="body home">
 
-<main class="article">
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow">{{{or page.attributes.[hero-eyebrow] 'Open source &middot; Java testing'}}}</p>
+      {{#with page.title}}
+      <h1 id="page-title" class="hero-title">{{{this}}}</h1>
+      {{/with}}
+      <p class="hero-lead">{{{or page.attributes.[hero-lead] 'Fluent assertions for Java.'}}}</p>
+      <div class="hero-actions">
+        {{#with site.components.[assertj-core]}}
+        <a class="button is-primary" href="{{{relativize ./url}}}">Get started</a>
+        {{else}}
+        <a class="button is-primary" href="#modules">Explore modules</a>
+        {{/with}}
+        <a class="button" href="https://github.com/assertj">View on GitHub</a>
+      </div>
+    </div>
+    <div class="hero-code" aria-label="AssertJ example">
+      <div class="hero-code-bar"><span></span><span></span><span></span><em>FellowshipTest.java</em></div>
+<pre><code><span class="k">import static</span> org.assertj.core.api.Assertions.<span class="f">assertThat</span>;
 
+<span class="f">assertThat</span>(frodo.getName()).<span class="f">isEqualTo</span>(<span class="s">"Frodo"</span>);
+
+<span class="f">assertThat</span>(fellowship).<span class="f">hasSize</span>(<span class="n">9</span>)
+                      .<span class="f">contains</span>(frodo, sam)
+                      .<span class="f">doesNotContain</span>(sauron);
+
+<span class="f">assertThat</span>(frodo.getAge())
+    .<span class="f">as</span>(<span class="s">"check %s's age"</span>, frodo.getName())
+    .<span class="f">isEqualTo</span>(<span class="n">33</span>);</code></pre>
+    </div>
+  </div>
+</section>
+
+<main class="article">
   <div class="content">
 <article class="doc">
-{{#with page.title}}
-<h1 id="page-title" class="page">{{{this}}}</h1>
-{{/with}}
 {{{page.contents}}}
 
-<div class="sect1 grid projects">
-  <div class="sectionbody">
-    {{#each site.components}}
-    {{#unless (eq ./name 'assertj')}}
-    <a href="{{{relativize ./url}}}" class="column3">
-      <div>
-        <h3>{{ title }}</h3>
-        <div class="paragraph">
-          <p>{{ latest.asciidoc.attributes.project-description }}</p>
-        </div>
-        <div class="paragraph">
-          <p><span class="version">{{ latest.displayVersion }}</span></p>
-        </div>
-      </div>
-    </a>
-    {{/unless}}
-    {{/each}}
-  </div>
+<div id="modules" class="projects">
+  {{#each site.components}}
+  {{#unless (eq ./name 'assertj')}}
+  <a href="{{{relativize ./url}}}" class="project-card">
+    <div class="project-card-head">
+      <span class="project-badge" aria-hidden="true">{{moduleBadge ./title}}</span>
+      <h3>{{{./title}}}</h3>
+    </div>
+    {{#with ./latest.asciidoc.attributes.project-description}}
+    <p class="project-description">{{{this}}}</p>
+    {{/with}}
+    <p class="project-meta">
+      <span class="version">{{ ./latest.displayVersion }}</span>
+      {{#with (olderVersionCount ./versions)}}
+      <span class="more-versions">+ {{this}} version{{#unless (eq this 1)}}s{{/unless}}</span>
+      {{/with}}
+    </p>
+  </a>
+  {{/unless}}
+  {{/each}}
 </div>
-
 
 </article>
   </div>
